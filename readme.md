@@ -29,8 +29,10 @@ This project is an attendance management system that leverages the power of Insi
 Before you start, ensure you have the following installed:
 
 - Python 3.x
-- InsightFace library 
+- InsightFace library
+- node.js
 - React
+- Microsoft C++ Build Tools
 
 ## Installation and Setup
 
