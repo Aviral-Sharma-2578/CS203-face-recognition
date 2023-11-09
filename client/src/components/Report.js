@@ -1,8 +1,6 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { Button, Card } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 
 const map = {
@@ -129,33 +127,33 @@ export default function Report() {
 
   return (
     <div>
-      <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
-        <thead class="bg-gray-50">
+      <table className="w-full border-collapse bg-white text-left text-sm text-gray-500">
+        <thead className="bg-gray-50">
           <tr>
-            <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+            <th scope="col" className="px-6 py-4 font-medium text-gray-900">
               ID
             </th>
-            <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+            <th scope="col" className="px-6 py-4 font-medium text-gray-900">
               Name
             </th>
-            <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+            <th scope="col" className="px-6 py-4 font-medium text-gray-900">
               Attendance
             </th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-gray-100 border-t border-gray-100">
+        <tbody className="divide-y divide-gray-100 border-t border-gray-100">
           {data.map((item, index) => {
-            return (<tr class="hover:bg-gray-50">
-            <th class="px-6 py-4 font-medium text-gray-900">{item.id}</th>
-            <td class="px-6 py-4">{map[item.id]}</td>
-            <td class="px-6 py-4">
-              <div class="flex items-center">
-                <span class="mr-2">{(item.value * 100) / n}%</span>
-                <div class="relative w-full">
-                  <div class="overflow-hidden h-2 text-xs flex rounded bg-green-200">
+            return (<tr className="hover:bg-gray-50">
+            <th className="px-6 py-4 font-medium text-gray-900">{item.id}</th>
+            <td className="px-6 py-4">{map[item.id]}</td>
+            <td className="px-6 py-4">
+              <div className="flex items-center">
+                <span className="mr-2">{(item.value * 100) / n}%</span>
+                <div className="relative w-full">
+                  <div className="overflow-hidden h-2 text-xs flex rounded bg-green-200">
                     <div
                       style={{ width: `${(item.value * 100) / n}%` }}
-                      class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500"
+                      className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500"
                     ></div>
                   </div>
                 </div>
