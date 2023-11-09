@@ -72,9 +72,9 @@ Before you start, ensure you have the following installed:
 
 ## Future Improvements
 
--- Database Connection (preferably MongoDB)
--- Execution time of the model
+--Database Connection (preferably MongoDB)
+--Execution time of the model
 
 ## Acknowledgements
--- InsightFace developers and contributors.
--- FastAPI, ReactJS, and TailwindCSS communities for their valuable tools and frameworks.
+--InsightFace developers and contributors.
+--FastAPI, ReactJS, and TailwindCSS communities for their valuable tools and frameworks.
