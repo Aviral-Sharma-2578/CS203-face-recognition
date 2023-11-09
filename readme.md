@@ -1,6 +1,10 @@
 # Face-Recognition Based Attendance System
 
-
+## Team Details:
+- Aviral Sharma (220001014)
+- Sanjeet Kumar (220001069)
+- Rishi Bharat Junghare (220001063)
+  
 ## Overview
 
 This project is an attendance management system that leverages the power of InsightFace for facial recognition. The app allows users to mark attendance by capturing and analyzing facial features.
