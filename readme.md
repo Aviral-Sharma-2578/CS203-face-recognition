@@ -1,4 +1,4 @@
-# Attendance App using InsightFace
+# Face-Recognition Based Attendance System
 
 
 ## Overview
