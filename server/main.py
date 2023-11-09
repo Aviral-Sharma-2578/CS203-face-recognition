@@ -28,7 +28,6 @@ status["220002018"] = 0
 status["220002029"] = 0
 status["220002063"] = 0
 status["220002081"] = 0
-_status = status
 
 origins = [
     "http://localhost", 
@@ -93,6 +92,7 @@ async def get_image(image: UploadFile):
     student_folder = 'images'
     student_images = os.listdir(student_folder)
 
+    # Get images of indvidual students
     faces_count = 0
     student_data = []
     for student_image in student_images:
@@ -102,7 +102,6 @@ async def get_image(image: UploadFile):
 
         if img is not None:
             faces = model.get(img)
-
         if faces:
             faces_count += 1
             student_data.append({'student_id': student_id, 'face_features': faces[0].embedding})
@@ -113,11 +112,12 @@ async def get_image(image: UploadFile):
     # Load the group photo again
     group_img = cv2.imread(group_image_path)
 
-    # Create a CSV file to store the results
     recognized_faces = 0
     results = []
     with open('report.json', "r") as file:
         data = json.load(file)
+        
+    # Perfrom face recognition by comparing similarity values
     for student in student_data:
         for face in model.get(group_img):
             similarity = np.dot(face.embedding, student['face_features']) / (np.linalg.norm(face.embedding) * np.linalg.norm(student['face_features']))
@@ -130,29 +130,30 @@ async def get_image(image: UploadFile):
         else:
             results.append({'student_id': student['student_id'], 'attendance': 'Absent'})
 
+    # Update the total attedance of individual students
     with open('report.json', 'w') as file:
         json.dump(data, file, indent=2)
     print("Number of recognized faces: ", recognized_faces)
-
-    # Save the results to a CSV file
-    global date
-    results_df = pd.DataFrame(results)
-    csv_path = "./records_csv/attendance" + str(date) + ".csv"
-    results_df.to_csv(csv_path, index=False)
-    print("Attendance data saved to attendance.csv")
     
     file_counter = find_next_file_count("records")
-    print(file_counter)
+
+    # Save the results to a CSV file
+    results_df = pd.DataFrame(results)
+    csv_path = f"./records_csv/attendance_{file_counter}.csv"
+    results_df.to_csv(csv_path, index=False)
+    print("Attendance data saved to attendance.csv")
+
+    # Save the results to a JSON file
     file_name = f"records/status_{file_counter}.json"
     if not os.path.exists("records"):
         os.makedirs("records")
-
     with open(file_name, "w") as file:
         json.dump(status, file)
+
+    for key in status:
+        status[key] = 0
     return {"message": "Image uploaded successfully"}
-
-status = _status
-
+    
 @app.get("/status/{idx}")
 async def update_attendance(idx: int) -> dict:
     file_name = f"records/status_{idx}.json"
@@ -172,10 +173,8 @@ async def get_info() -> dict:
     if os.path.exists(file_name):
         with open(file_name, "r") as file:
             status_data = json.load(file)
-        print("got from folder")
         return JSONResponse(content=status_data)
     else:
-        print("got from variable")
         json_compatible_item_data = jsonable_encoder({"lecture": 1, "date": "2023-09-11"})
         return JSONResponse(content=json_compatible_item_data)
 
@@ -185,9 +184,7 @@ async def get_info() -> dict:
     if os.path.exists(file_name):
         with open(file_name, "r") as file:
             status_data = json.load(file)
-        print("got from folder")
         return JSONResponse(content=status_data)
     else:
-        print("got from variable")
         json_compatible_item_data = jsonable_encoder(status_data)
         return JSONResponse(content=json_compatible_item_data)
